@@ -133,7 +133,8 @@ namespace InventoryManagement.Utilities
         {
             cb.DataSource = dt;
             cb.ValueMember = "ID";
-            cb.DisplayMember = "Name";            
+            cb.DisplayMember = "Name";
+            cb.SelectedIndex = -1;
         }
     }
 }

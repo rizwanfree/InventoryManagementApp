@@ -21,7 +21,7 @@ namespace InventoryManagement.Services.ProductServices
         public DataTable GetAll()
         {
             string sql = @"SELECT p.ProductID AS 'ID',
-                           p.ProductName AS 'Name',
+                           p.ProductName AS 'Product Name',
                            p.KGFT AS 'KG Per Foot',
                            c.CategoryName AS 'Category'       
                            FROM Products p
@@ -39,6 +39,15 @@ namespace InventoryManagement.Services.ProductServices
                            INNER JOIN Categories c ON c.CategoryID = p.CategoryID
                            WHERE p.ProductName LIKE @ProductName";
             return db.GetDataList(sql, new DBParameter { Parameter = "@ProductName", Value = '%' + name + '%'});
+        }
+
+        public DataTable GetForComboBox()
+        {
+            string sql = @"SELECT p.ProductID AS 'ID',
+                           c.CategoryName || ' ' || p.ProductName AS 'Name'   
+                           FROM Products p
+                           INNER JOIN Categories c ON c.CategoryID = p.CategoryID";
+            return db.GetDataList(sql);
         }
 
         public DataRow GetSingle(int rowID)

@@ -33,7 +33,7 @@
             label1 = new Label();
             rightPanel = new Panel();
             panel2 = new Panel();
-            label2 = new Label();
+            lblName = new Label();
             leftPanel.SuspendLayout();
             panel1.SuspendLayout();
             rightPanel.SuspendLayout();
@@ -85,23 +85,23 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(label2);
+            panel2.Controls.Add(lblName);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(909, 56);
             panel2.TabIndex = 0;
             // 
-            // label2
+            // lblName
             // 
-            label2.Dock = DockStyle.Left;
-            label2.Font = new Font("Segoe UI Variable Display Semib", 15F);
-            label2.Location = new Point(0, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(822, 56);
-            label2.TabIndex = 0;
-            label2.Text = "User";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            lblName.Dock = DockStyle.Left;
+            lblName.Font = new Font("Segoe UI Variable Display Semib", 15F);
+            lblName.Location = new Point(0, 0);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(822, 56);
+            lblName.TabIndex = 0;
+            lblName.Text = "User";
+            lblName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Sample
             // 
@@ -127,6 +127,6 @@
         protected Panel rightPanel;
         protected Panel panel2;
         private Label label1;
-        protected Label label2;
+        public Label lblName;
     }
 }

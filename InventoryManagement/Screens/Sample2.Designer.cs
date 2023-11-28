@@ -153,7 +153,7 @@
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(128, 59);
             btnAdd.TabIndex = 0;
-            btnAdd.Text = "Add";
+            btnAdd.Text = "Add New";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 

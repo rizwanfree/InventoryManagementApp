@@ -38,6 +38,11 @@ namespace InventoryManagement.Services.CategoryServices
             return db.GetDataList(sql, new DBParameter { Parameter = "@CategoryName", Value = $"%{name}%"});
         }
 
+        public DataTable GetForComboBox()
+        {
+            throw new NotImplementedException();
+        }
+
         public DataRow GetSingle(int rowID)
         {
             string sql = @"SELECT 

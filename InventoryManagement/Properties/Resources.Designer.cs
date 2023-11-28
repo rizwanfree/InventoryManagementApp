@@ -93,6 +93,16 @@ namespace InventoryManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap edit_add {
+            get {
+                object obj = ResourceManager.GetObject("edit_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Network_Drive_Offline_ {
             get {
                 object obj = ResourceManager.GetObject("Network Drive(Offline)", resourceCulture);

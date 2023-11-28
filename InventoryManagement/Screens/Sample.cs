@@ -13,9 +13,11 @@ namespace InventoryManagement.Screens
     public partial class Sample : Form
     {
         public bool isUpdate { get; set; }
+        public string UserName = "Test User";
         public Sample()
         {
             InitializeComponent();
+            lblName.Text = UserName;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace InventoryManagement.Services
         void UpdateRecord(object obj);
         void DeleteRecord(int rowID);
         DataTable GetAll();
+        DataTable GetForComboBox();
         DataRow GetSingle(int rowID);
         DataTable GetByName(string name);
     }

@@ -72,6 +72,11 @@ namespace InventoryManagement.Services.UserServices
             }
         }
 
+        public DataTable GetForComboBox()
+        {
+            throw new NotImplementedException();
+        }
+
         public DataRow GetSingle(int rowID)
         {
             try
