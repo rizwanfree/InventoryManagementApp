@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Reference Include="RSDBCore">
-      <HintPath>..\..\RSDBCore\RSDBCore\bin\Debug\net8.0\RSDBCore.dll</HintPath>
+      <HintPath>..\..\SQLiteCoreFramework\RSDBCore\bin\Debug\net8.0\RSDBCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 
