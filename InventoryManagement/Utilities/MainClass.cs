@@ -38,7 +38,6 @@ namespace InventoryManagement.Utilities
                 {
                     ((ComboBox)c).SelectedIndex = -1;
                     ((ComboBox)c).Enabled = false;
-                    c.ForeColor = Color.White;
                 }
                 if (c is RadioButton)
                 {
