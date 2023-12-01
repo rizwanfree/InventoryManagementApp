@@ -19,6 +19,8 @@ namespace InventoryManagement.Screens.Products
     {
         readonly ICRUD _supplier = new VendorRepo();
         readonly ICRUD _product = new ProductRepo();
+
+        public int PurchaseInvoiceID { get; set; }
         public PurchaseInvoiceScreen()
         {
             InitializeComponent();
@@ -28,6 +30,33 @@ namespace InventoryManagement.Screens.Products
         {
             MainClass.LoadDataToComboBox(cmbSupplier, _supplier.GetForComboBox());
             MainClass.LoadDataToComboBox(cmbProduct, _product.GetForComboBox());
+            MainClass.DisableResetControls(leftPanel);
+        }
+        public override void btnAdd_Click(object sender, EventArgs e)
+        {
+            MainClass.EnableResetControls(leftPanel);
+            this.isUpdate = false;
+            cmbSupplier.Focus();
+        }
+
+        public override void btnEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public override void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public override void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public override void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void cmbProduct_SelectionChangeCommitted(object sender, EventArgs e)
@@ -52,9 +81,39 @@ namespace InventoryManagement.Screens.Products
                 txtKG.Text = quantityInKG.ToString();
             }
             catch (Exception)
-            {                
-                txtQuantity.Clear();                               
+            {
+                txtQuantity.Clear();
             }
+        }
+
+        private void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            if (IsValidated())
+            {
+                string product = cmbProduct.Text;
+                decimal qtyFeet = Convert.ToDecimal(txtQuantity.Text);
+                decimal price = Convert.ToDecimal(txtPrice.Text);
+                decimal kg = Convert.ToDecimal(txtKG.Text);
+                int total = Convert.ToInt32(qtyFeet * price);
+                dgvList.Rows.Add("", product, qtyFeet, price, kg, total);
+                MainClass.EnableResetControls(leftPanel);
+                cmbProduct.Focus();
+            }
+
+        }
+
+        private bool IsValidated()
+        {
+            if (cmbProduct.SelectedIndex == -1)
+            {
+                return false;
+            }
+            if (txtQuantity.Text == string.Empty) return false;
+            if (txtPrice.Text == string.Empty) { return false; }
+            if (txtKG.Text == string.Empty) return false;
+
+
+            return true;
         }
     }
 }
