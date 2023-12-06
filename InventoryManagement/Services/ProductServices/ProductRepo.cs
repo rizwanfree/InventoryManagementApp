@@ -18,6 +18,13 @@ namespace InventoryManagement.Services.ProductServices
             db.DeleteRecord(sql, new DBParameter { Parameter = "@ProductID", Value = rowID });
         }
 
+
+        public int GetLastMaxID()
+        {
+            string sql = @"SELECT MAX(ProductID) FROM Products";
+            return Convert.ToInt32(db.GetScalarValue(sql));
+        }
+
         public DataTable GetAll()
         {
             string sql = @"SELECT p.ProductID AS 'ID',
@@ -48,6 +55,11 @@ namespace InventoryManagement.Services.ProductServices
                            FROM Products p
                            INNER JOIN Categories c ON c.CategoryID = p.CategoryID";
             return db.GetDataList(sql);
+        }
+
+        public object GetScaler(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public DataRow GetSingle(int rowID)

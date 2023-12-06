@@ -68,52 +68,92 @@ namespace InventoryManagement.Screens.Products
         private void GetProductInfo(int id)
         {
             var dr = _product.GetSingle(id);
-            txtFoot.Text = dr["KG Per Foot"].ToString();
-        }
-
-        private void txtQuantity_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                decimal quantity = Convert.ToDecimal(txtQuantity.Text);
-                decimal kgft = Convert.ToDecimal(txtFoot.Text);
-                decimal quantityInKG = quantity * kgft;
-                txtKG.Text = quantityInKG.ToString();
-            }
-            catch (Exception)
-            {
-                txtQuantity.Clear();
-            }
         }
 
         private void btnAddToCart_Click(object sender, EventArgs e)
         {
             if (IsValidated())
             {
+                List<string> productsInDGV = new List<string>();
+                foreach (DataGridViewRow row in dgvList.Rows)
+                {
+                    string p = row.Cells["Product"].Value.ToString();
+                    productsInDGV.Add(p);
+                }
                 string product = cmbProduct.Text;
-                decimal qtyFeet = Convert.ToDecimal(txtQuantity.Text);
-                decimal price = Convert.ToDecimal(txtPrice.Text);
-                decimal kg = Convert.ToDecimal(txtKG.Text);
-                int total = Convert.ToInt32(qtyFeet * price);
-                dgvList.Rows.Add("", product, qtyFeet, price, kg, total);
-                MainClass.EnableResetControls(leftPanel);
-                cmbProduct.Focus();
-            }
+                if (productsInDGV.Contains(cmbProduct.Text))
+                {
+                    MessageBox.Show($"{product} Already in List");
+                }
+                else
+                {
+                    decimal qtyFeet = Convert.ToDecimal(txtQuantity.Text);
+                    decimal price = Convert.ToDecimal(txtPrice.Text);
+                    decimal kg = Convert.ToDecimal(txtQuantity.Text);
+                    int total = Convert.ToInt32(qtyFeet * price);
+                    dgvList.Rows.Add("", product, price, kg, total);
+                    int suppID = Convert.ToInt32(cmbSupplier.SelectedValue);
+                    MainClass.EnableResetControls(leftPanel);
+                    cmbSupplier.SelectedValue = suppID;
+                    cmbProduct.Focus();
 
+                    CalculateProductTotal(dgvList);
+                }
+            }
         }
 
         private bool IsValidated()
         {
-            if (cmbProduct.SelectedIndex == -1)
-            {
-                return false;
-            }
+            if (cmbProduct.SelectedIndex == -1) { return false; }
             if (txtQuantity.Text == string.Empty) return false;
             if (txtPrice.Text == string.Empty) { return false; }
-            if (txtKG.Text == string.Empty) return false;
-
+            if (txtQuantity.Text == string.Empty) return false;
 
             return true;
+        }
+
+        private void dgvList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            int colID = dgvList.CurrentCell.ColumnIndex;
+            if (dgvList.Columns[colID].Name == "btnRemove")
+            {
+                int rowID = dgvList.CurrentRow.Index;
+                dgvList.Rows.RemoveAt(rowID);
+            }
+        }
+
+        private void dgvList_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int colID = dgvList.CurrentCell.ColumnIndex;
+                if (dgvList.Columns[colID].Name == "Price" || dgvList.Columns[colID].Name == "Quantity")
+                {
+                    int rowID = dgvList.CurrentRow.Index;
+                    int rate = Convert.ToInt32(dgvList.Rows[rowID].Cells["Price"].Value);
+                    int quantity = Convert.ToInt32(dgvList.Rows[rowID].Cells["Quantity"].Value);
+                    int total = rate * quantity;
+                    dgvList.Rows[rowID].Cells["Total"].Value = total;
+                }
+                CalculateProductTotal(dgvList);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void CalculateProductTotal(DataGridView dgv)
+        {
+            int total = 0;
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                total += Convert.ToInt32(row.Cells["Total"].Value);
+            }
+            txtProductTotal.Text = total.ToString();    
         }
     }
 }

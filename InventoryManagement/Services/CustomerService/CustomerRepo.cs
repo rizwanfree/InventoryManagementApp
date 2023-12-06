@@ -6,82 +6,82 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryManagement.Services.VendorServices
+namespace InventoryManagement.Services.CustomerService
 {
-    public class VendorRepo : ICRUD
+    public class CustomerRepo : ICRUD
     {
         DBSQLite db = new DBSQLite();
         public void DeleteRecord(int rowID)
         {
-            string sql = @"DELETE FROM Vendors
-                           WHERE VendorID = @VendorID";
-            db.DeleteRecord(sql, new DBParameter { Parameter = "@VendorID", Value = rowID });
+            string sql = @"DELETE FROM Customers
+                           WHERE CustomerID = @CustomerID";
+            db.DeleteRecord(sql, new DBParameter { Parameter = "@CustomerID", Value = rowID });
         }
 
         public DataTable GetAll()
         {
-            string sql = @"SELECT VendorID AS 'ID',
-                               VendorName AS 'Supplier Name' ,
+            string sql = @"SELECT CustomerID AS 'ID',
+                               CustomerName AS 'Supplier Name' ,
                                ContactPerson AS 'Contact Person',
                                Phone,
                                Mobile,
                                Address,
                                NTN,
                                GST
-                          FROM Vendors";
+                          FROM Customers";
             return db.GetDataList(sql);
         }
 
         public DataTable GetByName(string name)
         {
-            string sql = @"SELECT VendorID AS 'ID',
-                               VendorName AS 'Supplier Name' ,
+            string sql = @"SELECT CustomerID AS 'ID',
+                               CustomerName AS 'Supplier Name' ,
                                ContactPerson AS 'Contact Person',
                                Phone,
                                Mobile,
                                Address,
                                NTN,
                                GST
-                          FROM Vendors
-                          WHERE VendorName LIKE @VendorName";
-            return db.GetDataList(sql, new DBParameter { Parameter = "@VendorName", Value = name + '%'});
+                          FROM Customers
+                          WHERE CustomerName LIKE @CustomerName";
+            return db.GetDataList(sql, new DBParameter { Parameter = "@CustomerName", Value = name + '%' });
         }
 
         public DataTable GetForComboBox()
         {
-            string sql = @"SELECT VendorID AS 'ID',
-                               VendorName AS 'Name' 
-                          FROM Vendors";
+            string sql = @"SELECT CustomerID AS 'ID',
+                               CustomerName AS 'Name' 
+                          FROM Customers";
             return db.GetDataList(sql);
         }
 
         public object GetLastID()
         {
-            string sql = @"Select MAX(VendorID) FROM Vendors";
+            string sql = @"Select MAX(CustomerID) FROM Customers";
             return db.GetScalarValue(sql);
         }
 
         public DataRow GetSingle(int rowID)
         {
-            string sql = @"SELECT VendorID AS 'ID',
-                               VendorName AS 'Supplier Name' ,
-                               ContactPerson AS 'Contact Person',
-                               Phone,
-                               Mobile,
-                               Address,
-                               NTN,
-                               GST
-                          FROM Vendors
-                          WHERE VendorID = @VendorID";
-            DataTable dt = db.GetDataList(sql,new DBParameter { Parameter= "@VendorID", Value = rowID });
+            string sql = @"SELECT CustomerID AS 'ID',
+                            CustomerName AS 'Customer Name' ,
+                            ContactPerson AS 'Contact Person',
+                            Phone,
+                            Mobile,
+                            Address,
+                            NTN,
+                            GST
+                        FROM Customers
+                        WHERE CustomerID = @CustomerID";
+            DataTable dt = db.GetDataList(sql, new DBParameter { Parameter = "@CustomerID", Value = rowID });
             return dt.Rows[0];
         }
 
         public void InsertRecord(object obj)
         {
-            string sql = @"INSERT INTO Vendors (
+            string sql = @"INSERT INTO Customers (
                             
-                            VendorName,
+                            CustomerName,
                             ContactPerson,
                             Phone,
                             Mobile,
@@ -90,7 +90,7 @@ namespace InventoryManagement.Services.VendorServices
                             GST
                         )
                         VALUES (                           
-                            @VendorName,
+                            @CustomerName,
                             @ContactPerson,
                             @Phone,
                             @Mobile,
@@ -98,25 +98,21 @@ namespace InventoryManagement.Services.VendorServices
                             @NTN,
                             @GST
                         )";
-            db.InsertOrUpdateRecord(sql, obj);
-
-            int lastVendorID = Convert.ToInt32(GetLastID());    // Get Last Record ID from Database            
-            
-            // TODO: insert Opening Balance
+            db.InsertOrUpdateRecord(sql, obj);                 
         }
 
         public void UpdateRecord(object obj)
         {
-            string sql = @"UPDATE Vendors
+            string sql = @"UPDATE Customers
                            SET 
-                               VendorName = @VendorName,
+                               CustomerName = @CustomerName,
                                ContactPerson = @ContactPerson,
                                Phone = @Phone,
                                Mobile = @Mobile,
                                Address = @Address,
                                NTN = @NTN,
                                GST = @GST
-                           WHERE VendorID = @VendorID";
+                           WHERE CustomerID = @CustomerID";
             db.InsertOrUpdateRecord(sql, obj);
         }
     }

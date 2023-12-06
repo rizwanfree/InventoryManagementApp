@@ -11,14 +11,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
 
 namespace InventoryManagement.Screens.Products
 {
     public partial class ProductScreen : Sample2
     {
-        readonly ICRUD _category = new CategoryRepo();
-        readonly ICRUD _product = new ProductRepo();
+        readonly CategoryRepo _category = new CategoryRepo();
+        readonly ProductRepo _product = new ProductRepo();
+        readonly ProductStockRepo _stock = new ProductStockRepo();
 
         public int ProductID { get; set; }
         public ProductScreen()
@@ -31,6 +33,7 @@ namespace InventoryManagement.Screens.Products
             MainClass.DisableResetControls(leftPanel);
             LoadCategoryToComboBox();
             LoadProductsToDataGrid();
+            btnAdd.Focus();
         }
 
         private void LoadProductsToDataGrid()
@@ -45,6 +48,7 @@ namespace InventoryManagement.Screens.Products
 
         public override void btnAdd_Click(object sender, EventArgs e)
         {
+            this.isUpdate = false;
             MainClass.EnableResetControls(leftPanel);
             txtProductName.Focus();
         }
@@ -71,12 +75,28 @@ namespace InventoryManagement.Screens.Products
             }
             else
             {
-                _product.InsertRecord(GetObjects());
+                using (TransactionScope ts = new TransactionScope())
+                {
+                    _product.InsertRecord(GetObjects());
+                    int lastProductID = _product.GetLastMaxID();
+                    _stock.InsertRecord(GetStockObjects(lastProductID));
+                    ts.Complete();
+                }
             }
             MainClass.DisableResetControls(leftPanel);
             LoadProductsToDataGrid();
             this.isUpdate = false;
             btnAdd.Focus();
+        }
+
+        private object GetStockObjects(int lastProductID)
+        {
+            Stock s = new Stock();
+            s.ProductID = lastProductID;
+            s.UpdateDate = dtStock.Value.ToString();
+            s.Rate = txtRate.Text == string.Empty ? 0 : Convert.ToInt32(txtRate.Text);
+            s.InStock = txtAtHand.Text == string.Empty ? 0 : Convert.ToDecimal(txtAtHand.Text);
+            return s;
         }
 
         private object GetObjects()
@@ -91,7 +111,22 @@ namespace InventoryManagement.Screens.Products
 
         public override void btnDelete_Click(object sender, EventArgs e)
         {
-
+            if (this.ProductID < 0)
+            {
+                MessageBox.Show("Select Product from list");
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Delete this Item ?", "Deletion", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    _product.DeleteRecord(this.ProductID);
+                    _stock.DeleteRecord(this.ProductID);
+                    LoadProductsToDataGrid();
+                    MainClass.DisableResetControls(leftPanel);
+                    this.ProductID = -1;
+                }
+            }
         }
 
         public override void textBox1_TextChanged(object sender, EventArgs e)

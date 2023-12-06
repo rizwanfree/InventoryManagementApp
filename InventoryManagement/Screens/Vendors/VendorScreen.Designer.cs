@@ -44,6 +44,10 @@
             txtGST = new TextBox();
             label8 = new Label();
             dgvVendor = new DataGridView();
+            textBox2 = new TextBox();
+            label9 = new Label();
+            dateTimePicker1 = new DateTimePicker();
+            label10 = new Label();
             leftPanel.SuspendLayout();
             panel1.SuspendLayout();
             rightPanel.SuspendLayout();
@@ -65,6 +69,10 @@
             // 
             // leftPanel
             // 
+            leftPanel.Controls.Add(label10);
+            leftPanel.Controls.Add(dateTimePicker1);
+            leftPanel.Controls.Add(textBox2);
+            leftPanel.Controls.Add(label9);
             leftPanel.Controls.Add(txtGST);
             leftPanel.Controls.Add(label8);
             leftPanel.Controls.Add(txtNTN);
@@ -97,6 +105,10 @@
             leftPanel.Controls.SetChildIndex(txtNTN, 0);
             leftPanel.Controls.SetChildIndex(label8, 0);
             leftPanel.Controls.SetChildIndex(txtGST, 0);
+            leftPanel.Controls.SetChildIndex(label9, 0);
+            leftPanel.Controls.SetChildIndex(textBox2, 0);
+            leftPanel.Controls.SetChildIndex(dateTimePicker1, 0);
+            leftPanel.Controls.SetChildIndex(label10, 0);
             // 
             // rightPanel
             // 
@@ -250,6 +262,40 @@
             dgvVendor.TabIndex = 2;
             dgvVendor.CellClick += dgvVendor_CellClick;
             // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(9, 561);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(154, 25);
+            textBox2.TabIndex = 17;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(9, 539);
+            label9.Name = "label9";
+            label9.Size = new Size(125, 19);
+            label9.TabIndex = 16;
+            label9.Text = "Opening Balance #";
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.CustomFormat = "dd-MMM-yyyy";
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.Location = new Point(169, 561);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(122, 25);
+            dateTimePicker1.TabIndex = 18;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(169, 539);
+            label10.Name = "label10";
+            label10.Size = new Size(43, 19);
+            label10.TabIndex = 19;
+            label10.Text = "As Of";
+            // 
             // VendorScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -285,5 +331,9 @@
         private TextBox txtMobile;
         private Label label5;
         private DataGridView dgvVendor;
+        private Label label10;
+        private DateTimePicker dateTimePicker1;
+        private TextBox textBox2;
+        private Label label9;
     }
 }

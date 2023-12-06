@@ -1,4 +1,5 @@
 ﻿using InventoryManagement.Screens.Categories;
+using InventoryManagement.Screens.Customers;
 using InventoryManagement.Screens.Products;
 using InventoryManagement.Screens.Vendors;
 using InventoryManagement.Services;
@@ -54,7 +55,13 @@ namespace InventoryManagement.Screens
         private void btnPurchaseInvoice_Click(object sender, EventArgs e)
         {
             PurchaseInvoiceScreen p = new PurchaseInvoiceScreen();
-            MainClass.ShowWindow(p, this, MDI.ActiveForm) ;
+            MainClass.ShowWindow(p, this, MDI.ActiveForm);
+        }
+
+        private void btnCustomer_Click(object sender, EventArgs e)
+        {
+            CustomerScreen c = new CustomerScreen();
+            MainClass.ShowWindow(c, this, MDI.ActiveForm);
         }
     }
 }

@@ -101,6 +101,7 @@
             btnCustomer.TabIndex = 7;
             btnCustomer.Text = "Customers";
             btnCustomer.UseVisualStyleBackColor = true;
+            btnCustomer.Click += btnCustomer_Click;
             // 
             // btnVendor
             // 
