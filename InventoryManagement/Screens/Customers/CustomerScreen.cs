@@ -102,11 +102,11 @@ namespace InventoryManagement.Screens.Customers
             if (debit >= 0) { credit = 0; drcr = "DR"; }
             else { debit = 0; drcr = "CR"; }
             c.Debit = debit;
-            c.Credit = credit;
+            c.Credit = Math.Abs(credit);
             c.Reff = string.Empty;
             c.DRCR = drcr;
             return c;
-            
+
         }
 
         private object GetObjects()
@@ -160,5 +160,6 @@ namespace InventoryManagement.Screens.Customers
             this.CustomerID = Convert.ToInt32(dgvCustomer.Rows[rowID].Cells["ID"].Value);
             LoadCustomerDataToControls(CustomerID);
         }
+
     }
 }

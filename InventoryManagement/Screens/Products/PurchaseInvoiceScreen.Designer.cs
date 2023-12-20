@@ -33,6 +33,12 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel5 = new Panel();
+            txtNetTotal = new TextBox();
+            label11 = new Label();
+            txtDelivery = new TextBox();
+            label10 = new Label();
+            txtCutting = new TextBox();
+            label9 = new Label();
             txtProductTotal = new TextBox();
             label5 = new Label();
             dgvList = new DataGridView();
@@ -56,6 +62,8 @@
             btnAddToCart = new Button();
             button2 = new Button();
             button3 = new Button();
+            label6 = new Label();
+            lblStock = new Label();
             leftPanel.SuspendLayout();
             panel1.SuspendLayout();
             rightPanel.SuspendLayout();
@@ -79,6 +87,8 @@
             // leftPanel
             // 
             leftPanel.BackgroundImageLayout = ImageLayout.Stretch;
+            leftPanel.Controls.Add(lblStock);
+            leftPanel.Controls.Add(label6);
             leftPanel.Controls.Add(button3);
             leftPanel.Controls.Add(button2);
             leftPanel.Controls.Add(btnAddToCart);
@@ -109,6 +119,8 @@
             leftPanel.Controls.SetChildIndex(btnAddToCart, 0);
             leftPanel.Controls.SetChildIndex(button2, 0);
             leftPanel.Controls.SetChildIndex(button3, 0);
+            leftPanel.Controls.SetChildIndex(label6, 0);
+            leftPanel.Controls.SetChildIndex(lblStock, 0);
             // 
             // rightPanel
             // 
@@ -127,6 +139,12 @@
             // panel5
             // 
             panel5.BackColor = Color.DarkSlateGray;
+            panel5.Controls.Add(txtNetTotal);
+            panel5.Controls.Add(label11);
+            panel5.Controls.Add(txtDelivery);
+            panel5.Controls.Add(label10);
+            panel5.Controls.Add(txtCutting);
+            panel5.Controls.Add(label9);
             panel5.Controls.Add(txtProductTotal);
             panel5.Controls.Add(label5);
             panel5.Dock = DockStyle.Right;
@@ -136,15 +154,81 @@
             panel5.Size = new Size(316, 650);
             panel5.TabIndex = 3;
             // 
+            // txtNetTotal
+            // 
+            txtNetTotal.BackColor = SystemColors.InfoText;
+            txtNetTotal.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            txtNetTotal.ForeColor = Color.Gold;
+            txtNetTotal.Location = new Point(164, 153);
+            txtNetTotal.Name = "txtNetTotal";
+            txtNetTotal.ReadOnly = true;
+            txtNetTotal.Size = new Size(146, 31);
+            txtNetTotal.TabIndex = 21;
+            txtNetTotal.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            label11.Location = new Point(6, 156);
+            label11.Name = "label11";
+            label11.Size = new Size(85, 24);
+            label11.TabIndex = 22;
+            label11.Text = "Net Total";
+            // 
+            // txtDelivery
+            // 
+            txtDelivery.BackColor = SystemColors.Window;
+            txtDelivery.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            txtDelivery.ForeColor = SystemColors.ControlText;
+            txtDelivery.Location = new Point(164, 114);
+            txtDelivery.Name = "txtDelivery";
+            txtDelivery.ReadOnly = true;
+            txtDelivery.Size = new Size(146, 31);
+            txtDelivery.TabIndex = 19;
+            txtDelivery.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            label10.Location = new Point(6, 117);
+            label10.Name = "label10";
+            label10.Size = new Size(148, 24);
+            label10.TabIndex = 20;
+            label10.Text = "Cartage Charges";
+            // 
+            // txtCutting
+            // 
+            txtCutting.BackColor = SystemColors.Window;
+            txtCutting.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            txtCutting.ForeColor = SystemColors.ControlText;
+            txtCutting.Location = new Point(164, 77);
+            txtCutting.Name = "txtCutting";
+            txtCutting.ReadOnly = true;
+            txtCutting.Size = new Size(146, 31);
+            txtCutting.TabIndex = 17;
+            txtCutting.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            label9.Location = new Point(6, 80);
+            label9.Name = "label9";
+            label9.Size = new Size(145, 24);
+            label9.TabIndex = 18;
+            label9.Text = "Cutting Charges";
+            // 
             // txtProductTotal
             // 
             txtProductTotal.BackColor = SystemColors.InfoText;
             txtProductTotal.Font = new Font("Segoe UI Variable Display Semib", 13F);
             txtProductTotal.ForeColor = Color.Gold;
-            txtProductTotal.Location = new Point(142, 40);
+            txtProductTotal.Location = new Point(164, 40);
             txtProductTotal.Name = "txtProductTotal";
             txtProductTotal.ReadOnly = true;
-            txtProductTotal.Size = new Size(168, 31);
+            txtProductTotal.Size = new Size(146, 31);
             txtProductTotal.TabIndex = 15;
             txtProductTotal.TextAlign = HorizontalAlignment.Right;
             // 
@@ -357,6 +441,25 @@
             button3.TabStop = false;
             button3.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            label6.Location = new Point(3, 465);
+            label6.Name = "label6";
+            label6.Size = new Size(75, 24);
+            label6.TabIndex = 17;
+            label6.Text = "In Stock";
+            // 
+            // lblStock
+            // 
+            lblStock.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            lblStock.Location = new Point(167, 465);
+            lblStock.Name = "lblStock";
+            lblStock.Size = new Size(127, 24);
+            lblStock.TabIndex = 18;
+            lblStock.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // PurchaseInvoiceScreen
             // 
             AcceptButton = btnAddToCart;
@@ -402,5 +505,13 @@
         private DataGridViewButtonColumn btnRemove;
         private TextBox txtProductTotal;
         private Label label5;
+        private Label lblStock;
+        private Label label6;
+        private TextBox txtNetTotal;
+        private Label label11;
+        private TextBox txtDelivery;
+        private Label label10;
+        private TextBox txtCutting;
+        private Label label9;
     }
 }

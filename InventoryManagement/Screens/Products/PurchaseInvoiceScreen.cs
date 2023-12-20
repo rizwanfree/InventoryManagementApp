@@ -19,6 +19,7 @@ namespace InventoryManagement.Screens.Products
     {
         readonly ICRUD _supplier = new VendorRepo();
         readonly ICRUD _product = new ProductRepo();
+        readonly ProductStockRepo _stockRepo = new ProductStockRepo();
 
         public int PurchaseInvoiceID { get; set; }
         public PurchaseInvoiceScreen()
@@ -63,6 +64,13 @@ namespace InventoryManagement.Screens.Products
         {
             int id = Convert.ToInt32(cmbProduct.SelectedValue);
             GetProductInfo(id);
+            GetProductStock(id);
+        }
+
+        private void GetProductStock(int id)
+        {
+            decimal stock = _stockRepo.GetStock(id);
+            lblStock.Text = $"{stock.ToString()} KG";
         }
 
         private void GetProductInfo(int id)

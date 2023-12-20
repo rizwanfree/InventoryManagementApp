@@ -21,25 +21,29 @@ namespace InventoryManagement.Services.ProductServices
 
         public DataTable GetAll()
         {
-            string sql = @"SELECT s.StockID,
-                           s.UpdateDate,
-                           p.ProductName as 'Product Name',
-                           s.InStock
+            string sql = @"SELECT s.StockID as 'ID' ,                           
+                           c.CategoryName || ' ' || p.ProductName as 'Product Name',
+                           s.InStock As 'Quantity At Hand',
+                           s.Rate,
+                           Cast(s.InStock as int) * Cast(s.Rate as int) as 'Value'
                            FROM Stock s
-                           INNER JOIN Products p ON p.ProductID = s.ProductID";
+                           INNER JOIN Products p ON p.ProductID = s.ProductID
+                           INNER JOIN Categories c ON c.CategoryID = p.CategoryID";
             return db.GetDataList(sql);
         }
 
         public DataTable GetByName(string name)
         {
-            string sql = @"SELECT s.StockID,
-                       s.UpdateDate,
-                       p.ProductName as 'Product Name',
-                       s.InStock
-                  FROM Stock s
-                  INNER JOIN Products p ON p.ProductID = s.ProductID
-                  WHERE p.ProcuctName = @ProductName";
-            return db.GetDataList(sql, new DBParameter { Parameter = "@ProductName", Value=name });
+            string sql = @"SELECT s.StockID as 'ID' ,                           
+                           c.CategoryName || ' ' || p.ProductName as 'Product Name',
+                           s.InStock As 'Quantity At Hand',
+                           s.Rate,
+                           Cast(s.InStock as int) * Cast(s.Rate as int) as 'Value'
+                           FROM Stock s
+                           INNER JOIN Products p ON p.ProductID = s.ProductID
+                           INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+                           WHERE p.ProductName LIKE @ProductName";
+            return db.GetDataList(sql, new DBParameter { Parameter = "@ProductName", Value=name + '%' });
         }
 
 
@@ -87,6 +91,14 @@ namespace InventoryManagement.Services.ProductServices
                                InStock = @InStock'
                            WHERE ProductID = @ProductID";
             db.InsertOrUpdateRecord(sql, obj);
+        }
+
+        public decimal GetStock(int id)
+        {
+            string sql = @"Select InStock
+                           FROM Stock
+                           WHERE ProductID = @ProductID";
+            return Convert.ToDecimal(db.GetScalarValue(sql, new DBParameter { Parameter = "@ProductID", Value = id}));
         }
     }
 }

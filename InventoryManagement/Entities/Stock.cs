@@ -11,7 +11,7 @@ namespace InventoryManagement.Entities
         public int StockID { get; set; }
         public string UpdateDate { get; set; } = string.Empty;
         public int ProductID { get; set; }
-        public int Rate { get; set; }
+        public decimal Rate { get; set; }
         public decimal InStock { get; set; }
     }
 }

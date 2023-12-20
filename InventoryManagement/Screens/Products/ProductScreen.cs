@@ -127,6 +127,7 @@ namespace InventoryManagement.Screens.Products
                     this.ProductID = -1;
                 }
             }
+            if (dgvProduct.Rows.Count > 0) dgvProduct.Rows[0].Selected = true;
         }
 
         public override void textBox1_TextChanged(object sender, EventArgs e)
