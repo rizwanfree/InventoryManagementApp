@@ -43,6 +43,11 @@ namespace InventoryManagement.Services.CategoryServices
             throw new NotImplementedException();
         }
 
+        public object GetScaler(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public DataRow GetSingle(int rowID)
         {
             string sql = @"SELECT 

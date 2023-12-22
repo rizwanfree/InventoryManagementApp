@@ -77,6 +77,11 @@ namespace InventoryManagement.Services.UserServices
             throw new NotImplementedException();
         }
 
+        public object GetScaler(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public DataRow GetSingle(int rowID)
         {
             try

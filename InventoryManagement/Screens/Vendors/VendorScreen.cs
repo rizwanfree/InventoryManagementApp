@@ -92,6 +92,7 @@ namespace InventoryManagement.Screens.Vendors
             if (dr == DialogResult.Yes)
             {
                 _vendor.DeleteRecord(this.VendorID);
+                LoadVendorsToDataGrid();
             }
         }
 

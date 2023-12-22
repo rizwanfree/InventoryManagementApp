@@ -32,9 +32,9 @@
             btnCustomer = new Button();
             btnVendor = new Button();
             btnCatagory = new Button();
-            button5 = new Button();
+            btnSell = new Button();
             btnPurchaseInvoice = new Button();
-            button3 = new Button();
+            btnStock = new Button();
             btnProducts = new Button();
             btnUsers = new Button();
             leftPanel.SuspendLayout();
@@ -70,9 +70,9 @@
             tableLayoutPanel1.Controls.Add(btnCustomer, 5, 0);
             tableLayoutPanel1.Controls.Add(btnVendor, 4, 0);
             tableLayoutPanel1.Controls.Add(btnCatagory, 1, 0);
-            tableLayoutPanel1.Controls.Add(button5, 1, 1);
+            tableLayoutPanel1.Controls.Add(btnSell, 1, 1);
             tableLayoutPanel1.Controls.Add(btnPurchaseInvoice, 0, 1);
-            tableLayoutPanel1.Controls.Add(button3, 3, 0);
+            tableLayoutPanel1.Controls.Add(btnStock, 3, 0);
             tableLayoutPanel1.Controls.Add(btnProducts, 2, 0);
             tableLayoutPanel1.Controls.Add(btnUsers, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
@@ -101,6 +101,7 @@
             btnCustomer.TabIndex = 7;
             btnCustomer.Text = "Customers";
             btnCustomer.UseVisualStyleBackColor = true;
+            btnCustomer.Click += btnCustomer_Click;
             // 
             // btnVendor
             // 
@@ -136,20 +137,21 @@
             btnCatagory.UseVisualStyleBackColor = true;
             btnCatagory.Click += btnCatagory_Click;
             // 
-            // button5
+            // btnSell
             // 
-            button5.Cursor = Cursors.Hand;
-            button5.Dock = DockStyle.Fill;
-            button5.FlatAppearance.BorderColor = Color.DarkSlateGray;
-            button5.FlatAppearance.BorderSize = 2;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            button5.Location = new Point(171, 154);
-            button5.Name = "button5";
-            button5.Size = new Size(162, 145);
-            button5.TabIndex = 4;
-            button5.Text = "Sales";
-            button5.UseVisualStyleBackColor = true;
+            btnSell.Cursor = Cursors.Hand;
+            btnSell.Dock = DockStyle.Fill;
+            btnSell.FlatAppearance.BorderColor = Color.DarkSlateGray;
+            btnSell.FlatAppearance.BorderSize = 2;
+            btnSell.FlatStyle = FlatStyle.Flat;
+            btnSell.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            btnSell.Location = new Point(171, 154);
+            btnSell.Name = "btnSell";
+            btnSell.Size = new Size(162, 145);
+            btnSell.TabIndex = 4;
+            btnSell.Text = "Sales";
+            btnSell.UseVisualStyleBackColor = true;
+            btnSell.Click += btnSell_Click;
             // 
             // btnPurchaseInvoice
             // 
@@ -167,22 +169,23 @@
             btnPurchaseInvoice.UseVisualStyleBackColor = true;
             btnPurchaseInvoice.Click += btnPurchaseInvoice_Click;
             // 
-            // button3
+            // btnStock
             // 
-            button3.Cursor = Cursors.Hand;
-            button3.Dock = DockStyle.Fill;
-            button3.FlatAppearance.BorderColor = Color.DarkSlateGray;
-            button3.FlatAppearance.BorderSize = 2;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            button3.Image = Properties.Resources.business;
-            button3.Location = new Point(507, 3);
-            button3.Name = "button3";
-            button3.Size = new Size(162, 145);
-            button3.TabIndex = 2;
-            button3.Text = "Stocks";
-            button3.TextImageRelation = TextImageRelation.ImageAboveText;
-            button3.UseVisualStyleBackColor = true;
+            btnStock.Cursor = Cursors.Hand;
+            btnStock.Dock = DockStyle.Fill;
+            btnStock.FlatAppearance.BorderColor = Color.DarkSlateGray;
+            btnStock.FlatAppearance.BorderSize = 2;
+            btnStock.FlatStyle = FlatStyle.Flat;
+            btnStock.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            btnStock.Image = Properties.Resources.business;
+            btnStock.Location = new Point(507, 3);
+            btnStock.Name = "btnStock";
+            btnStock.Size = new Size(162, 145);
+            btnStock.TabIndex = 2;
+            btnStock.Text = "Stocks";
+            btnStock.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnStock.UseVisualStyleBackColor = true;
+            btnStock.Click += btnStock_Click;
             // 
             // btnProducts
             // 
@@ -239,9 +242,9 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Button button5;
+        private Button btnSell;
         private Button btnPurchaseInvoice;
-        private Button button3;
+        private Button btnStock;
         private Button btnProducts;
         private Button btnUsers;
         private Button btnCatagory;
