@@ -84,13 +84,13 @@ namespace InventoryManagement.Services.ProductServices
 
         }
 
-        public void UpdateStock(object obj)
+        public void UpdateStock(DBParameter[] paras)
         {
             string sql = @"UPDATE Stock
                            SET UpdateDate = @UpdateDate,
-                               InStock = @InStock'
+                               InStock = @InStock
                            WHERE ProductID = @ProductID";
-            db.InsertOrUpdateRecord(sql, obj);
+            db.InsertOrUpdateRecord(sql, paras);
         }
 
         public decimal GetStock(int id)

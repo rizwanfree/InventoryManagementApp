@@ -1,6 +1,6 @@
 ﻿namespace InventoryManagement.Screens.Products
 {
-    partial class PurchaseInvoiceScreen
+    partial class SellInvoiceScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            PurchaseScreenRightPanel = new Panel();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            SellScreenRightPanel = new Panel();
             txtNetTotal = new TextBox();
             label11 = new Label();
             txtDelivery = new TextBox();
@@ -46,17 +47,11 @@
             txtProductTotal = new TextBox();
             label5 = new Label();
             dgvList = new DataGridView();
-            ID = new DataGridViewTextBoxColumn();
-            Product = new DataGridViewTextBoxColumn();
-            Price = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
-            btnRemove = new DataGridViewButtonColumn();
             panel6 = new Panel();
             label2 = new Label();
             dtInvoiceDate = new DateTimePicker();
             label3 = new Label();
-            cmbSupplier = new ComboBox();
+            cmbCustomer = new ComboBox();
             cmbProduct = new ComboBox();
             label4 = new Label();
             txtPrice = new TextBox();
@@ -68,11 +63,22 @@
             button3 = new Button();
             label6 = new Label();
             txtBNumber = new TextBox();
+            txtKG = new TextBox();
+            label12 = new Label();
+            txtkgft = new TextBox();
+            label13 = new Label();
+            ID = new DataGridViewTextBoxColumn();
+            Product = new DataGridViewTextBoxColumn();
+            Price = new DataGridViewTextBoxColumn();
+            QuantityFT = new DataGridViewTextBoxColumn();
+            QuantityKG = new DataGridViewTextBoxColumn();
+            Total = new DataGridViewTextBoxColumn();
+            btnRemove = new DataGridViewButtonColumn();
             leftPanel.SuspendLayout();
             panel1.SuspendLayout();
             rightPanel.SuspendLayout();
             panel2.SuspendLayout();
-            PurchaseScreenRightPanel.SuspendLayout();
+            SellScreenRightPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
             // 
@@ -91,6 +97,10 @@
             // leftPanel
             // 
             leftPanel.BackgroundImageLayout = ImageLayout.Stretch;
+            leftPanel.Controls.Add(txtkgft);
+            leftPanel.Controls.Add(label13);
+            leftPanel.Controls.Add(txtKG);
+            leftPanel.Controls.Add(label12);
             leftPanel.Controls.Add(txtBNumber);
             leftPanel.Controls.Add(label6);
             leftPanel.Controls.Add(button3);
@@ -102,7 +112,7 @@
             leftPanel.Controls.Add(label7);
             leftPanel.Controls.Add(cmbProduct);
             leftPanel.Controls.Add(label4);
-            leftPanel.Controls.Add(cmbSupplier);
+            leftPanel.Controls.Add(cmbCustomer);
             leftPanel.Controls.Add(label3);
             leftPanel.Controls.Add(dtInvoiceDate);
             leftPanel.Controls.Add(label2);
@@ -113,7 +123,7 @@
             leftPanel.Controls.SetChildIndex(label2, 0);
             leftPanel.Controls.SetChildIndex(dtInvoiceDate, 0);
             leftPanel.Controls.SetChildIndex(label3, 0);
-            leftPanel.Controls.SetChildIndex(cmbSupplier, 0);
+            leftPanel.Controls.SetChildIndex(cmbCustomer, 0);
             leftPanel.Controls.SetChildIndex(label4, 0);
             leftPanel.Controls.SetChildIndex(cmbProduct, 0);
             leftPanel.Controls.SetChildIndex(label7, 0);
@@ -125,38 +135,42 @@
             leftPanel.Controls.SetChildIndex(button3, 0);
             leftPanel.Controls.SetChildIndex(label6, 0);
             leftPanel.Controls.SetChildIndex(txtBNumber, 0);
+            leftPanel.Controls.SetChildIndex(label12, 0);
+            leftPanel.Controls.SetChildIndex(txtKG, 0);
+            leftPanel.Controls.SetChildIndex(label13, 0);
+            leftPanel.Controls.SetChildIndex(txtkgft, 0);
             // 
             // rightPanel
             // 
             rightPanel.Controls.Add(dgvList);
-            rightPanel.Controls.Add(PurchaseScreenRightPanel);
+            rightPanel.Controls.Add(SellScreenRightPanel);
             rightPanel.Size = new Size(951, 771);
             rightPanel.Controls.SetChildIndex(panel2, 0);
             rightPanel.Controls.SetChildIndex(panel3, 0);
-            rightPanel.Controls.SetChildIndex(PurchaseScreenRightPanel, 0);
+            rightPanel.Controls.SetChildIndex(SellScreenRightPanel, 0);
             rightPanel.Controls.SetChildIndex(dgvList, 0);
             // 
             // panel2
             // 
             panel2.Size = new Size(951, 56);
             // 
-            // PurchaseScreenRightPanel
+            // SellScreenRightPanel
             // 
-            PurchaseScreenRightPanel.BackColor = Color.DarkSlateGray;
-            PurchaseScreenRightPanel.Controls.Add(txtNetTotal);
-            PurchaseScreenRightPanel.Controls.Add(label11);
-            PurchaseScreenRightPanel.Controls.Add(txtDelivery);
-            PurchaseScreenRightPanel.Controls.Add(label10);
-            PurchaseScreenRightPanel.Controls.Add(txtCutting);
-            PurchaseScreenRightPanel.Controls.Add(label9);
-            PurchaseScreenRightPanel.Controls.Add(txtProductTotal);
-            PurchaseScreenRightPanel.Controls.Add(label5);
-            PurchaseScreenRightPanel.Dock = DockStyle.Right;
-            PurchaseScreenRightPanel.ForeColor = Color.White;
-            PurchaseScreenRightPanel.Location = new Point(635, 121);
-            PurchaseScreenRightPanel.Name = "PurchaseScreenRightPanel";
-            PurchaseScreenRightPanel.Size = new Size(316, 650);
-            PurchaseScreenRightPanel.TabIndex = 3;
+            SellScreenRightPanel.BackColor = Color.DarkSlateGray;
+            SellScreenRightPanel.Controls.Add(txtNetTotal);
+            SellScreenRightPanel.Controls.Add(label11);
+            SellScreenRightPanel.Controls.Add(txtDelivery);
+            SellScreenRightPanel.Controls.Add(label10);
+            SellScreenRightPanel.Controls.Add(txtCutting);
+            SellScreenRightPanel.Controls.Add(label9);
+            SellScreenRightPanel.Controls.Add(txtProductTotal);
+            SellScreenRightPanel.Controls.Add(label5);
+            SellScreenRightPanel.Dock = DockStyle.Right;
+            SellScreenRightPanel.ForeColor = Color.White;
+            SellScreenRightPanel.Location = new Point(635, 121);
+            SellScreenRightPanel.Name = "SellScreenRightPanel";
+            SellScreenRightPanel.Size = new Size(316, 650);
+            SellScreenRightPanel.TabIndex = 3;
             // 
             // txtNetTotal
             // 
@@ -253,84 +267,34 @@
             dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvList.BackgroundColor = Color.White;
             dgvList.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = SystemColors.Control;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI Variable Display Semib", 13F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Variable Display Semib", 13F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvList.Columns.AddRange(new DataGridViewColumn[] { ID, Product, Price, Quantity, Total, btnRemove });
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = SystemColors.Window;
-            dataGridViewCellStyle15.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            dataGridViewCellStyle15.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle15.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle15;
+            dgvList.Columns.AddRange(new DataGridViewColumn[] { ID, Product, Price, QuantityFT, QuantityKG, Total, btnRemove });
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle8;
             dgvList.Dock = DockStyle.Fill;
             dgvList.Location = new Point(0, 121);
             dgvList.Name = "dgvList";
             dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle16.Font = new Font("Segoe UI Variable Display Semib", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI Variable Display Semib", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle9;
             dgvList.Size = new Size(635, 650);
             dgvList.TabIndex = 4;
             dgvList.CellClick += dgvList_CellClick;
             dgvList.CellValidated += dgvList_CellValidated;
-            // 
-            // ID
-            // 
-            ID.HeaderText = "ID";
-            ID.Name = "ID";
-            ID.Visible = false;
-            // 
-            // Product
-            // 
-            dataGridViewCellStyle10.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Product.DefaultCellStyle = dataGridViewCellStyle10;
-            Product.FillWeight = 300F;
-            Product.HeaderText = "Product Name";
-            Product.Name = "Product";
-            // 
-            // Price
-            // 
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Price.DefaultCellStyle = dataGridViewCellStyle11;
-            Price.FillWeight = 75F;
-            Price.HeaderText = "Rate";
-            Price.Name = "Price";
-            // 
-            // Quantity
-            // 
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Quantity.DefaultCellStyle = dataGridViewCellStyle12;
-            Quantity.FillWeight = 80F;
-            Quantity.HeaderText = "Quantity";
-            Quantity.Name = "Quantity";
-            // 
-            // Total
-            // 
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Total.DefaultCellStyle = dataGridViewCellStyle13;
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            // 
-            // btnRemove
-            // 
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.ForeColor = Color.Gray;
-            btnRemove.DefaultCellStyle = dataGridViewCellStyle14;
-            btnRemove.HeaderText = "Remove";
-            btnRemove.Name = "btnRemove";
-            btnRemove.Text = "Remove";
-            btnRemove.UseColumnTextForButtonValue = true;
             // 
             // panel6
             // 
@@ -344,7 +308,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            label2.Location = new Point(5, 129);
+            label2.Location = new Point(6, 129);
             label2.Name = "label2";
             label2.Size = new Size(44, 21);
             label2.TabIndex = 2;
@@ -363,30 +327,30 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            label3.Location = new Point(5, 244);
+            label3.Location = new Point(6, 241);
             label3.Name = "label3";
-            label3.Size = new Size(71, 21);
+            label3.Size = new Size(82, 21);
             label3.TabIndex = 4;
-            label3.Text = "Supplier";
+            label3.Text = "Customer";
             // 
-            // cmbSupplier
+            // cmbCustomer
             // 
-            cmbSupplier.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbSupplier.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            cmbSupplier.FormattingEnabled = true;
-            cmbSupplier.Location = new Point(5, 268);
-            cmbSupplier.Name = "cmbSupplier";
-            cmbSupplier.Size = new Size(257, 29);
-            cmbSupplier.TabIndex = 2;
+            cmbCustomer.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCustomer.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            cmbCustomer.FormattingEnabled = true;
+            cmbCustomer.Location = new Point(6, 268);
+            cmbCustomer.Name = "cmbCustomer";
+            cmbCustomer.Size = new Size(246, 29);
+            cmbCustomer.TabIndex = 2;
             // 
             // cmbProduct
             // 
             cmbProduct.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbProduct.Font = new Font("Segoe UI Variable Display Semib", 12F);
             cmbProduct.FormattingEnabled = true;
-            cmbProduct.Location = new Point(5, 334);
+            cmbProduct.Location = new Point(6, 334);
             cmbProduct.Name = "cmbProduct";
-            cmbProduct.Size = new Size(257, 29);
+            cmbProduct.Size = new Size(246, 29);
             cmbProduct.TabIndex = 3;
             cmbProduct.SelectionChangeCommitted += cmbProduct_SelectionChangeCommitted;
             // 
@@ -394,7 +358,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            label4.Location = new Point(5, 310);
+            label4.Location = new Point(6, 305);
             label4.Name = "label4";
             label4.Size = new Size(68, 21);
             label4.TabIndex = 6;
@@ -422,30 +386,31 @@
             // txtQuantity
             // 
             txtQuantity.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            txtQuantity.Location = new Point(5, 390);
+            txtQuantity.Location = new Point(6, 390);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(158, 29);
+            txtQuantity.Size = new Size(157, 29);
             txtQuantity.TabIndex = 4;
             txtQuantity.TextAlign = HorizontalAlignment.Right;
+            txtQuantity.TextChanged += txtQuantity_TextChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            label8.Location = new Point(5, 366);
+            label8.Location = new Point(6, 366);
             label8.Name = "label8";
-            label8.Size = new Size(114, 21);
+            label8.Size = new Size(128, 21);
             label8.TabIndex = 14;
-            label8.Text = "Quantity In KG";
+            label8.Text = "Quantity In Foot";
             // 
             // btnAddToCart
             // 
             btnAddToCart.FlatAppearance.BorderSize = 2;
             btnAddToCart.FlatStyle = FlatStyle.Flat;
             btnAddToCart.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            btnAddToCart.Location = new Point(5, 425);
+            btnAddToCart.Location = new Point(6, 484);
             btnAddToCart.Name = "btnAddToCart";
-            btnAddToCart.Size = new Size(291, 47);
+            btnAddToCart.Size = new Size(288, 47);
             btnAddToCart.TabIndex = 6;
             btnAddToCart.Text = "Add To Cart";
             btnAddToCart.UseVisualStyleBackColor = true;
@@ -456,9 +421,9 @@
             button2.BackgroundImage = Properties.Resources.edit_add;
             button2.BackgroundImageLayout = ImageLayout.Stretch;
             button2.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            button2.Location = new Point(266, 268);
+            button2.Location = new Point(258, 268);
             button2.Name = "button2";
-            button2.Size = new Size(28, 25);
+            button2.Size = new Size(36, 29);
             button2.TabIndex = 2;
             button2.TabStop = false;
             button2.UseVisualStyleBackColor = true;
@@ -468,9 +433,9 @@
             button3.BackgroundImage = Properties.Resources.edit_add;
             button3.BackgroundImageLayout = ImageLayout.Stretch;
             button3.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            button3.Location = new Point(266, 333);
+            button3.Location = new Point(258, 333);
             button3.Name = "button3";
-            button3.Size = new Size(28, 25);
+            button3.Size = new Size(36, 30);
             button3.TabIndex = 4;
             button3.TabStop = false;
             button3.UseVisualStyleBackColor = true;
@@ -479,7 +444,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            label6.Location = new Point(5, 188);
+            label6.Location = new Point(6, 188);
             label6.Name = "label6";
             label6.Size = new Size(104, 21);
             label6.TabIndex = 16;
@@ -492,32 +457,135 @@
             txtBNumber.Size = new Size(291, 25);
             txtBNumber.TabIndex = 1;
             // 
-            // PurchaseInvoiceScreen
+            // txtKG
+            // 
+            txtKG.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            txtKG.Location = new Point(113, 449);
+            txtKG.Name = "txtKG";
+            txtKG.Size = new Size(181, 29);
+            txtKG.TabIndex = 17;
+            txtKG.TextAlign = HorizontalAlignment.Right;
+            txtKG.TextChanged += txtKG_TextChanged;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            label12.Location = new Point(113, 425);
+            label12.Name = "label12";
+            label12.Size = new Size(160, 21);
+            label12.TabIndex = 18;
+            label12.Text = "Quantity In Kilogram";
+            // 
+            // txtkgft
+            // 
+            txtkgft.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            txtkgft.Location = new Point(6, 449);
+            txtkgft.Name = "txtkgft";
+            txtkgft.Size = new Size(101, 29);
+            txtkgft.TabIndex = 19;
+            txtkgft.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            label13.Location = new Point(6, 425);
+            label13.Name = "label13";
+            label13.Size = new Size(48, 21);
+            label13.TabIndex = 20;
+            label13.Text = "Kg/ft";
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.Name = "ID";
+            ID.Visible = false;
+            // 
+            // Product
+            // 
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Product.DefaultCellStyle = dataGridViewCellStyle2;
+            Product.FillWeight = 139.547134F;
+            Product.HeaderText = "Product Name";
+            Product.Name = "Product";
+            // 
+            // Price
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Price.DefaultCellStyle = dataGridViewCellStyle3;
+            Price.FillWeight = 34.8867836F;
+            Price.HeaderText = "Rate";
+            Price.Name = "Price";
+            // 
+            // QuantityFT
+            // 
+            QuantityFT.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            QuantityFT.DefaultCellStyle = dataGridViewCellStyle4;
+            QuantityFT.FillWeight = 80F;
+            QuantityFT.HeaderText = "Quantity In Foot";
+            QuantityFT.Name = "QuantityFT";
+            QuantityFT.Width = 167;
+            // 
+            // QuantityKG
+            // 
+            QuantityKG.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
+            QuantityKG.DefaultCellStyle = dataGridViewCellStyle5;
+            QuantityKG.FillWeight = 46.5157051F;
+            QuantityKG.HeaderText = "Quantity In KG";
+            QuantityKG.Name = "QuantityKG";
+            QuantityKG.Width = 152;
+            // 
+            // Total
+            // 
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Variable Display Semib", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Total.DefaultCellStyle = dataGridViewCellStyle6;
+            Total.FillWeight = 46.5157051F;
+            Total.HeaderText = "Total";
+            Total.Name = "Total";
+            // 
+            // btnRemove
+            // 
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.ForeColor = Color.Gray;
+            btnRemove.DefaultCellStyle = dataGridViewCellStyle7;
+            btnRemove.FillWeight = 46.5157051F;
+            btnRemove.HeaderText = "Remove";
+            btnRemove.Name = "btnRemove";
+            btnRemove.Text = "Remove";
+            btnRemove.UseColumnTextForButtonValue = true;
+            // 
+            // SellInvoiceScreen
             // 
             AcceptButton = btnAddToCart;
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1251, 771);
-            Name = "PurchaseInvoiceScreen";
-            Text = "PurchaseInvoiceScreen";
-            Load += PurchaseInvoiceScreen_Load;
+            Name = "SellInvoiceScreen";
+            Text = "Sell Screen";
+            Load += SellInvoiceScreen_Load;
             leftPanel.ResumeLayout(false);
             leftPanel.PerformLayout();
             panel1.ResumeLayout(false);
             rightPanel.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            PurchaseScreenRightPanel.ResumeLayout(false);
-            PurchaseScreenRightPanel.PerformLayout();
+            SellScreenRightPanel.ResumeLayout(false);
+            SellScreenRightPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private DataGridView dgvList;
-        private Panel PurchaseScreenRightPanel;
+        private Panel SellScreenRightPanel;
         private ComboBox cmbProduct;
         private Label label4;
-        private ComboBox cmbSupplier;
+        private ComboBox cmbCustomer;
         private Label label3;
         private DateTimePicker dtInvoiceDate;
         private Label label2;
@@ -538,12 +606,17 @@
         private TextBox txtCutting;
         private Label label9;
         private Label label6;
+        private TextBox txtBNumber;
+        private TextBox txtKG;
+        private Label label12;
+        private TextBox txtkgft;
+        private Label label13;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Product;
         private DataGridViewTextBoxColumn Price;
-        private DataGridViewTextBoxColumn Quantity;
+        private DataGridViewTextBoxColumn QuantityFT;
+        private DataGridViewTextBoxColumn QuantityKG;
         private DataGridViewTextBoxColumn Total;
         private DataGridViewButtonColumn btnRemove;
-        private TextBox txtBNumber;
     }
 }

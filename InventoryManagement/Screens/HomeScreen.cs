@@ -69,5 +69,11 @@ namespace InventoryManagement.Screens
             ProductStockScreen p = new ProductStockScreen();
             MainClass.ShowWindow(p, this, MDI.ActiveForm);
         }
+
+        private void btnSell_Click(object sender, EventArgs e)
+        {
+            SellInvoiceScreen s = new SellInvoiceScreen();
+            MainClass.ShowWindow(s, this, MDI.ActiveForm);
+        }
     }
 }

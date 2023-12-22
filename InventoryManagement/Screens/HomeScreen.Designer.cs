@@ -32,7 +32,7 @@
             btnCustomer = new Button();
             btnVendor = new Button();
             btnCatagory = new Button();
-            button5 = new Button();
+            btnSell = new Button();
             btnPurchaseInvoice = new Button();
             btnStock = new Button();
             btnProducts = new Button();
@@ -70,7 +70,7 @@
             tableLayoutPanel1.Controls.Add(btnCustomer, 5, 0);
             tableLayoutPanel1.Controls.Add(btnVendor, 4, 0);
             tableLayoutPanel1.Controls.Add(btnCatagory, 1, 0);
-            tableLayoutPanel1.Controls.Add(button5, 1, 1);
+            tableLayoutPanel1.Controls.Add(btnSell, 1, 1);
             tableLayoutPanel1.Controls.Add(btnPurchaseInvoice, 0, 1);
             tableLayoutPanel1.Controls.Add(btnStock, 3, 0);
             tableLayoutPanel1.Controls.Add(btnProducts, 2, 0);
@@ -137,20 +137,21 @@
             btnCatagory.UseVisualStyleBackColor = true;
             btnCatagory.Click += btnCatagory_Click;
             // 
-            // button5
+            // btnSell
             // 
-            button5.Cursor = Cursors.Hand;
-            button5.Dock = DockStyle.Fill;
-            button5.FlatAppearance.BorderColor = Color.DarkSlateGray;
-            button5.FlatAppearance.BorderSize = 2;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Segoe UI Variable Display Semib", 12F);
-            button5.Location = new Point(171, 154);
-            button5.Name = "button5";
-            button5.Size = new Size(162, 145);
-            button5.TabIndex = 4;
-            button5.Text = "Sales";
-            button5.UseVisualStyleBackColor = true;
+            btnSell.Cursor = Cursors.Hand;
+            btnSell.Dock = DockStyle.Fill;
+            btnSell.FlatAppearance.BorderColor = Color.DarkSlateGray;
+            btnSell.FlatAppearance.BorderSize = 2;
+            btnSell.FlatStyle = FlatStyle.Flat;
+            btnSell.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            btnSell.Location = new Point(171, 154);
+            btnSell.Name = "btnSell";
+            btnSell.Size = new Size(162, 145);
+            btnSell.TabIndex = 4;
+            btnSell.Text = "Sales";
+            btnSell.UseVisualStyleBackColor = true;
+            btnSell.Click += btnSell_Click;
             // 
             // btnPurchaseInvoice
             // 
@@ -241,7 +242,7 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Button button5;
+        private Button btnSell;
         private Button btnPurchaseInvoice;
         private Button btnStock;
         private Button btnProducts;
