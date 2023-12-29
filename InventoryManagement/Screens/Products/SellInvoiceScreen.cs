@@ -39,30 +39,69 @@ namespace InventoryManagement.Screens.Products
             MainClass.LoadDataToComboBox(cmbCustomer, _customer.GetForComboBox());
             MainClass.LoadDataToComboBox(cmbProduct, _product.GetForComboBox());
             MainClass.DisableResetControls(leftPanel);
+
+            if (this.isUpdate)
+            {
+                btnAdd.Enabled = false;
+                LoadInvoiceDataToControls();
+                CalculateProductTotal(dgvList);
+            }
+            
         }
+
+        private void LoadInvoiceDataToControls()
+        {
+            DataRow dr = _sell.GetSingle(SellInvoiceID);
+            
+            dtInvoiceDate.Value = Convert.ToDateTime(dr["InvoiceDate"]);
+            txtBNumber.Text = dr["BillNumber"].ToString();
+            cmbCustomer.SelectedValue = Convert.ToInt32(dr["CustomerID"]);
+
+            // Load Details from Sell Details Table
+
+            DataTable dt = _detail.GetByID(SellInvoiceID);
+            foreach (DataRow row in dt.Rows)
+            {
+                int productID = Convert.ToInt32(row["ProductID"]);
+                decimal foot = Convert.ToDecimal(row["Foot"]);
+                decimal quantity = Convert.ToDecimal(row["Quantity"]);
+                decimal price = Convert.ToDecimal(row["Rate"]);
+                int total = Convert.ToInt32(row["Total"]);
+                string productName = row["ProductName"].ToString();
+
+                dgvList.Rows.Add(productID, productName, price, foot, quantity, total);
+            }
+        }
+
         public override void btnAdd_Click(object sender, EventArgs e)
         {
             MainClass.EnableResetControls(leftPanel);
             MainClass.EnableResetControls(SellScreenRightPanel);
             this.isUpdate = false;
             txtBNumber.Focus();
+            rbKG.Checked = true;
         }
 
         public override void btnEdit_Click(object sender, EventArgs e)
         {
             // TODO: Update Invoice
+            MainClass.EnableControls(leftPanel);
+            // MainClass.EnableControls(SellScreenRightPanel);
+            // this.isUpdate = false;
+            //txtBNumber.Focus();
+            //rbKG.Checked = true;
         }
 
         public override void btnSave_Click(object sender, EventArgs e)
         {
             if (isUpdate)
             {
+                UpdateInvoice();
 
             }
             else
             {
                 // Save Sell Invoice
-
                 _sell.InsertRecord(GetSellInvoiceObjects());
 
                 // Get Last Sell Invoice ID from Database
@@ -88,13 +127,57 @@ namespace InventoryManagement.Screens.Products
 
         }
 
+        private void UpdateInvoice()
+        {
+            // Update Stock by adding all items to stock
+            UpdateStockReturnItem();
+
+            // Delete Old Records
+            _detail.DeleteRecord(SellInvoiceID);
+
+            // Insert Record again
+            InsertSellInvoiceDetails(SellInvoiceID);
+
+            // Update Stock
+            UpdateStock();
+
+            this.isUpdate = false;
+            btnAdd.Enabled = true;
+            btnEdit.Enabled = false;
+            btnDelete.Enabled = false;
+        }
+
+        private void UpdateStockReturnItem()
+        {
+            // Get All products from Sell Invoice Details
+            DataTable dt = _detail.GetByID(this.SellInvoiceID);
+            // Loop thru table and update stock by adding product quantities
+            foreach (DataRow row in dt.Rows)
+            {
+                int productID = Convert.ToInt32(row["ProductID"]);
+                decimal quantity = Convert.ToDecimal(row["Quantity"]);
+                string updateDate = DateTime.Now.ToShortDateString();
+
+                // Get Stock from Stock Table
+                decimal stock = _stockRepo.GetStock(productID);
+                decimal newStock = stock + quantity;
+
+                // Update Stock
+                List<DBParameter> paras = new List<DBParameter>();
+                paras.Add(new DBParameter { Parameter = "@ProductID", Value = productID });
+                paras.Add(new DBParameter { Parameter = "@UpdateDate", Value = DateTime.Now.ToShortDateString() });
+                paras.Add(new DBParameter { Parameter = "@InStock", Value = newStock });
+                _stockRepo.UpdateStockSell(paras.ToArray());
+            }
+        }
+
         private void UpdateStock()
         {
             foreach (DataGridViewRow row in dgvList.Rows)
             {
                 // Insert Records in Invoice Details Table
                 int productID = Convert.ToInt32(row.Cells["ID"].Value);
-                decimal quantity = Convert.ToDecimal(row.Cells["Quantity"].Value);
+                decimal quantity = Convert.ToDecimal(row.Cells["QuantityKG"].Value);
                 decimal oldStock = _stockRepo.GetStock(productID);
 
                 string updateDate = DateTime.Now.ToString();
@@ -108,7 +191,7 @@ namespace InventoryManagement.Screens.Products
                 paras.Add(pid);
                 paras.Add(uDate);
                 paras.Add(updatedStock);
-                _stockRepo.UpdateStock(paras.ToArray());
+                _stockRepo.UpdateStockSell(paras.ToArray());
             }
         }
 
@@ -127,7 +210,8 @@ namespace InventoryManagement.Screens.Products
             p.SellInvoiceDetailID = this.isUpdate ? this.SellInvoiceDetailsID : 0;
             p.SellInvoiceID = lastPurchseInvoiceID;
             p.ProductID = Convert.ToInt32(row.Cells["ID"].Value);
-            p.Quantity = Convert.ToDecimal(row.Cells["Quantity"].Value);
+            p.Foot = Convert.ToDecimal(row.Cells["QuantityFT"].Value);
+            p.Quantity = Convert.ToDecimal(row.Cells["QuantityKG"].Value);
             p.Rate = Convert.ToDecimal(row.Cells["Price"].Value);
             p.Total = Convert.ToDecimal(row.Cells["Total"].Value);
             return p;
@@ -139,7 +223,7 @@ namespace InventoryManagement.Screens.Products
             p.SellInvoiceID = this.isUpdate ? this.SellInvoiceID : 0;
             p.CustomerID = Convert.ToInt32(cmbCustomer.SelectedValue);
             p.BillNumber = txtBNumber.Text;
-            p.InvoiceDate = dtInvoiceDate.Value.ToString();
+            p.InvoiceDate = dtInvoiceDate.Value.ToShortDateString();
             return p;
         }
 
@@ -187,13 +271,15 @@ namespace InventoryManagement.Screens.Products
                 }
                 else
                 {
+                    decimal qtyFeet;
+                    decimal qtyKG;
                     int productID = Convert.ToInt32(cmbProduct.SelectedValue);
-                    decimal qtyFeet = Convert.ToDecimal(txtQuantity.Text);
-                    decimal qtyKG = Convert.ToDecimal(txtKG.Text);
+                    qtyFeet = rbFoot.Checked ? Convert.ToDecimal(txtFoot.Text) : 0;
+                    qtyKG = Convert.ToDecimal(txtKG.Text);
                     decimal price = Convert.ToDecimal(txtPrice.Text);
-                    decimal kg = Convert.ToDecimal(txtQuantity.Text);
-                    int total = Convert.ToInt32(qtyFeet * price);
-                    dgvList.Rows.Add(productID, product, price, kg, qtyKG, total);
+                    //decimal kg = Convert.ToDecimal(txtFoot.Text);
+                    int total = Convert.ToInt32(qtyKG * price);
+                    dgvList.Rows.Add(productID, product, price, qtyFeet, qtyKG, total);
                     int customerID = Convert.ToInt32(cmbCustomer.SelectedValue);
                     ClearFields();
 
@@ -208,7 +294,7 @@ namespace InventoryManagement.Screens.Products
 
         private void ClearFields()
         {
-            txtQuantity.Clear();
+            txtFoot.Clear();
             txtKG.Clear();
             txtkgft.Clear();
             txtPrice.Clear();
@@ -218,9 +304,9 @@ namespace InventoryManagement.Screens.Products
         private bool IsValidated()
         {
             if (cmbProduct.SelectedIndex == -1) { return false; }
-            if (txtQuantity.Text == string.Empty) return false;
+            if (txtKG.Text == string.Empty) return false;
             if (txtPrice.Text == string.Empty) { return false; }
-            if (txtQuantity.Text == string.Empty) return false;
+            //if (txtFoot.Text == string.Empty) return false;
 
             return true;
         }
@@ -242,11 +328,11 @@ namespace InventoryManagement.Screens.Products
             try
             {
                 int colID = dgvList.CurrentCell.ColumnIndex;
-                if (dgvList.Columns[colID].Name == "Price" || dgvList.Columns[colID].Name == "Quantity")
+                if (dgvList.Columns[colID].Name == "Price" || dgvList.Columns[colID].Name == "QuantityKG")
                 {
                     int rowID = dgvList.CurrentRow.Index;
                     int rate = Convert.ToInt32(dgvList.Rows[rowID].Cells["Price"].Value);
-                    int quantity = Convert.ToInt32(dgvList.Rows[rowID].Cells["Quantity"].Value);
+                    int quantity = Convert.ToInt32(dgvList.Rows[rowID].Cells["QuantityKG"].Value);
                     int total = rate * quantity;
                     dgvList.Rows[rowID].Cells["Total"].Value = total;
                 }
@@ -271,9 +357,9 @@ namespace InventoryManagement.Screens.Products
 
         private void txtQuantity_TextChanged(object sender, EventArgs e)
         {
-            if (txtQuantity.Text.Length > 0 && txtkgft.Text.Length > 0 && Convert.ToDecimal(txtkgft.Text) > 0)
+            if (txtFoot.Text.Length > 0 && txtkgft.Text.Length > 0 && Convert.ToDecimal(txtkgft.Text) > 0)
             {
-                decimal ftQuantity = Convert.ToDecimal(txtQuantity.Text);
+                decimal ftQuantity = Convert.ToDecimal(txtFoot.Text);
                 decimal kgft = Convert.ToDecimal(txtkgft.Text);
                 decimal kgQuantity = ftQuantity * kgft;
                 txtKG.Text = kgQuantity.ToString();
@@ -282,12 +368,36 @@ namespace InventoryManagement.Screens.Products
 
         private void txtKG_TextChanged(object sender, EventArgs e)
         {
-            if (txtKG.Text.Length > 0 && txtkgft.Text.Length > 0 && Convert.ToDecimal(txtkgft.Text) > 0)
+/*            if (txtKG.Text.Length > 0 && txtkgft.Text.Length > 0 && Convert.ToDecimal(txtkgft.Text) > 0)
             {
                 decimal kgQuantity = Convert.ToDecimal(txtKG.Text);
                 decimal kgft = Convert.ToDecimal(txtkgft.Text);
                 decimal ftQuantity = kgQuantity / kgft;
-                txtQuantity.Text = ftQuantity.ToString();
+                txtFoot.Text = ftQuantity.ToString();
+            }*/
+        }
+
+        private void rbFoot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbFoot.Checked)
+            {
+                txtFoot.Enabled = true;
+            }
+            else
+            {
+                txtFoot.Enabled = false;
+            }
+        }
+
+        private void rbKG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbKG.Checked) 
+            {
+                txtKG.Enabled = true;
+            }
+            else
+            {
+                txtKG.Enabled = false;
             }
         }
     }

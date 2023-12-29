@@ -23,6 +23,22 @@ namespace InventoryManagement.Screens.Products
         private void ProductStockScreen_Load(object sender, EventArgs e)
         {
             LoadProductToDataGrid();
+            CalculateStock();
+        }
+
+        private void CalculateStock()
+        {
+            int products = dgvProducts.RowCount;
+            decimal quantity = 0;
+            int value = 0;
+            foreach (DataGridViewRow r in dgvProducts.Rows)
+            {
+                quantity += Convert.ToDecimal(r.Cells["Quantity At Hand"].Value);
+                value += Convert.ToInt32(r.Cells["Value"].Value);
+            }
+            lblProducts.Text = products.ToString();
+            lblQuantity.Text = quantity.ToString() + " KG";
+            lblValue.Text = "Rs. " + value.ToString();
         }
 
         private void LoadProductToDataGrid()

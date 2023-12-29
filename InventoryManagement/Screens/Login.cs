@@ -8,12 +8,13 @@ namespace InventoryManagement.Screens
     {
         public Login()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
             txtUsername.Focus();
+            ((MDI)MdiParent).myMenu.Visible = false;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -37,10 +38,9 @@ namespace InventoryManagement.Screens
                 DataRow dr = dt.Rows[0];
                 //this.UserName = dr["Name"].ToString();
                 
-                base.lblName.Text = dr["Name"].ToString();
-                HomeScreen obj = new HomeScreen();                
-                MainClass.ShowWindow(obj, this, MDI.ActiveForm);
                 
+                HomeScreen obj = new HomeScreen();                
+                MainClass.ShowWindow(obj, this, ActiveForm);                
             }
             else
             {

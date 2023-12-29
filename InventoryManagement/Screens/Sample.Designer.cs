@@ -30,14 +30,10 @@
         {
             leftPanel = new Panel();
             panel1 = new Panel();
-            label1 = new Label();
             rightPanel = new Panel();
             panel2 = new Panel();
-            lblName = new Label();
             leftPanel.SuspendLayout();
-            panel1.SuspendLayout();
             rightPanel.SuspendLayout();
-            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // leftPanel
@@ -54,24 +50,12 @@
             // panel1
             // 
             panel1.BackColor = Color.DarkSlateGray;
-            panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.ForeColor = Color.White;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(300, 56);
             panel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.Dock = DockStyle.Right;
-            label1.Font = new Font("Segoe UI Variable Display Semib", 15F);
-            label1.Location = new Point(76, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(224, 56);
-            label1.TabIndex = 0;
-            label1.Text = "Welcome";
-            label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // rightPanel
             // 
@@ -85,23 +69,11 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(lblName);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(909, 56);
             panel2.TabIndex = 0;
-            // 
-            // lblName
-            // 
-            lblName.Dock = DockStyle.Left;
-            lblName.Font = new Font("Segoe UI Variable Display Semib", 15F);
-            lblName.Location = new Point(0, 0);
-            lblName.Name = "lblName";
-            lblName.Size = new Size(822, 56);
-            lblName.TabIndex = 0;
-            lblName.Text = "User";
-            lblName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Sample
             // 
@@ -114,9 +86,7 @@
             Font = new Font("Segoe UI Variable Display Semib", 10F);
             Name = "Sample";
             leftPanel.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             rightPanel.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -126,7 +96,5 @@
         protected Panel panel1;
         protected Panel rightPanel;
         protected Panel panel2;
-        private Label label1;
-        public Label lblName;
     }
 }

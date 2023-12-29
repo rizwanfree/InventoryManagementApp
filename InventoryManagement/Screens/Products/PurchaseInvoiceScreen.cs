@@ -38,7 +38,38 @@ namespace InventoryManagement.Screens.Products
             MainClass.LoadDataToComboBox(cmbSupplier, _supplier.GetForComboBox());
             MainClass.LoadDataToComboBox(cmbProduct, _product.GetForComboBox());
             MainClass.DisableResetControls(leftPanel);
+
+            if (this.isUpdate)
+            {
+                btnAdd.Enabled = false;
+                LoadInvoiceDataToControls();        // Load Invoice Data to controls
+                CalculateProductTotal(dgvList);     // Calculate Total
+            }
         }
+
+        private void LoadInvoiceDataToControls()
+        {
+            DataRow dr = _purchase.GetSingle(PurchaseInvoiceID);
+
+            dtInvoiceDate.Value = Convert.ToDateTime(dr["InvoiceDate"]);
+            txtBNumber.Text = dr["BillNumber"].ToString();
+            cmbSupplier.SelectedValue = Convert.ToInt32(dr["VendorID"]);
+
+            // Load Details from Sell Details Table
+
+            DataTable dt = _detail.GetByID(PurchaseInvoiceID);
+            foreach (DataRow row in dt.Rows)
+            {
+                int productID = Convert.ToInt32(row["ProductID"]);
+                decimal quantity = Convert.ToDecimal(row["Quantity"]);
+                decimal price = Convert.ToDecimal(row["Rate"]);
+                int total = Convert.ToInt32(row["Total"]);
+                string productName = row["ProductName"].ToString();
+
+                dgvList.Rows.Add(productID, productName, price, quantity, total);
+            }
+        }
+
         public override void btnAdd_Click(object sender, EventArgs e)
         {
             MainClass.EnableResetControls(leftPanel);
@@ -50,13 +81,14 @@ namespace InventoryManagement.Screens.Products
         public override void btnEdit_Click(object sender, EventArgs e)
         {
             // TODO: Update Invoice
+            MainClass.EnableControls(leftPanel);
         }
 
         public override void btnSave_Click(object sender, EventArgs e)
         {            
             if (isUpdate)
             {
-
+                UpdateInvoice();
             }
             else
             {
@@ -87,6 +119,50 @@ namespace InventoryManagement.Screens.Products
 
         }
 
+        private void UpdateInvoice()
+        {
+            // Update Stock by adding all items to stock
+            UpdateStockReturnItem();
+
+            // Delete Old Records
+            _detail.DeleteRecord(this.PurchaseInvoiceID);
+
+            // Insert Record again
+            InsertPurchaseInvoiceDetails(this.PurchaseInvoiceID);
+
+            // Update Stock
+            UpdateStock();
+
+            this.isUpdate = false;
+            btnAdd.Enabled = true;
+            btnEdit.Enabled = false;
+            btnDelete.Enabled = false;
+        }
+
+        private void UpdateStockReturnItem()
+        {
+            // Get All products from Sell Invoice Details
+            DataTable dt = _detail.GetByID(this.PurchaseInvoiceID);
+            // Loop thru table and update stock by adding product quantities
+            foreach (DataRow row in dt.Rows)
+            {
+                int productID = Convert.ToInt32(row["ProductID"]);
+                decimal quantity = Convert.ToDecimal(row["Quantity"]);
+                string updateDate = DateTime.Now.ToShortDateString();
+
+                // Get Stock from Stock Table
+                decimal stock = _stockRepo.GetStock(productID);
+                decimal newStock = stock - quantity;
+
+                // Update Stock
+                List<DBParameter> paras = new List<DBParameter>();
+                paras.Add(new DBParameter { Parameter = "@ProductID", Value = productID });
+                paras.Add(new DBParameter { Parameter = "@UpdateDate", Value = DateTime.Now.ToShortDateString() });
+                paras.Add(new DBParameter { Parameter = "@InStock", Value = newStock });
+                _stockRepo.UpdateStockSell(paras.ToArray());
+            }
+        }
+
         private void UpdateStock()
         {
             foreach (DataGridViewRow row in dgvList.Rows)
@@ -97,16 +173,19 @@ namespace InventoryManagement.Screens.Products
                 decimal oldStock = _stockRepo.GetStock(productID);
 
                 string updateDate = DateTime.Now.ToString();
+                decimal rate = Convert.ToDecimal(row.Cells["Price"].Value);
                 decimal newStock = quantity + oldStock;
                 
                 DBParameter pid = new DBParameter(){ Parameter = "@ProductID", Value = productID};
                 DBParameter uDate = new DBParameter() { Parameter = "@UpdateDate", Value = updateDate };
+                DBParameter ratePara = new DBParameter() { Parameter = "@Rate", Value = rate};
                 DBParameter updatedStock = new DBParameter() { Parameter = "@InStock", Value = newStock};
 
                 List<DBParameter> paras = new List<DBParameter>();
                 paras.Add(pid);
                 paras.Add(uDate);
                 paras.Add(updatedStock);
+                paras.Add(ratePara);
                 _stockRepo.UpdateStock(paras.ToArray());
             }
         }
@@ -138,7 +217,7 @@ namespace InventoryManagement.Screens.Products
             p.PurchaseInvoiceID = this.isUpdate ? this.PurchaseInvoiceID : 0;
             p.VendorID = Convert.ToInt32(cmbSupplier.SelectedValue);
             p.BillNumber = txtBNumber.Text;
-            p.InvoiceDate = dtInvoiceDate.Value.ToString();
+            p.InvoiceDate = dtInvoiceDate.Value.ToShortDateString();
             return p;
         }
 

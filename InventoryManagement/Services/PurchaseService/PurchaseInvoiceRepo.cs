@@ -32,7 +32,36 @@ namespace InventoryManagement.Services.PurchaseService
 
         public DataTable GetByName(string name)
         {
-            throw new NotImplementedException();
+            string sql = @"SELECT DISTINCT si.PurchaseInvoiceID AS 'ID',
+                        si.InvoiceDate AS 'Date',
+                        si.BillNumber AS 'Bill #',
+                        c.VendorName AS 'Supplier',
+                        SUM(sid.Total) AS 'Invoice Amount'       
+                        FROM PurchaseInvoice si
+                        INNER JOIN Vendors c ON si.VendorID = c.VendorID
+                        INNER JOIN PurchaseInvoiceDetail sid ON sid.PurchaseInvoiceID = si.PurchaseInvoiceID
+                        WHERE c.VendorName LIKE @VendorName
+                        GROUP BY si.PurchaseInvoiceID";
+
+            return db.GetDataList(sql, new DBParameter { Parameter = "@VendorName", Value = '%' + name.ToUpper() + '%' });
+        }
+
+        public DataTable GetByDate(string fromDate, string endDate)
+        {
+            string sql = @"SELECT DISTINCT si.PurchaseInvoiceID AS 'ID',
+                        si.InvoiceDate AS 'Date',
+                        si.BillNumber AS 'Bill #',
+                        c.VendorName AS 'Supplier',
+                        SUM(sid.Total) AS 'Invoice Amount'       
+                        FROM PurchaseInvoice si
+                        INNER JOIN Vendors c ON si.VendorID = c.VendorID
+                        INNER JOIN PurchaseInvoiceDetail sid ON sid.PurchaseInvoiceID = si.PurchaseInvoiceID
+                        WHERE si.InvoiceDate BETWEEN @FromDate AND @EndDate
+                        GROUP BY si.PurchaseInvoiceID";
+            List<DBParameter> paras = new List<DBParameter>();
+            paras.Add(new DBParameter { Parameter = "@FromDate", Value = fromDate });
+            paras.Add(new DBParameter { Parameter = "@EndDate", Value = endDate });
+            return db.GetDataList(sql, paras.ToArray());
         }
 
         public DataTable GetForComboBox()
@@ -42,7 +71,13 @@ namespace InventoryManagement.Services.PurchaseService
 
         public DataRow GetSingle(int rowID)
         {
-            throw new NotImplementedException();
+            string sql = @"SELECT PurchaseInvoiceID,
+                           InvoiceDate,
+                           BillNumber,
+                           VendorID
+                           FROM PurchaseInvoice
+                           WHERE PurchaseInvoiceID = @PurchaseInvoiceID";
+            return db.GetDataList(sql, new DBParameter { Parameter = "@PurchaseInvoiceID", Value = rowID }).Rows[0];
         }
 
         public void InsertRecord(object obj)

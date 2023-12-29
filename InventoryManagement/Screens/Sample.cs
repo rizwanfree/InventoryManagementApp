@@ -17,7 +17,7 @@ namespace InventoryManagement.Screens
         public Sample()
         {
             InitializeComponent();
-            lblName.Text = UserName;
+            
         }
     }
 }

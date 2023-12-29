@@ -1,4 +1,5 @@
 ﻿using InventoryManagement.Screens;
+using InventoryManagement.Screens.Accounts;
 using InventoryManagement.Utilities;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,13 @@ namespace InventoryManagement
         {
             Login login = new Login();
             MainClass.ShowWindow(login, this);
+        }
+
+        private void ledgerToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            CustomerBalanceScreen c = new CustomerBalanceScreen();
+            c.lblTitle.Text = "Customer Balance Screen";
+            c.ShowDialog();
         }
     }
 }

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
+            btnSearchSellInvoices = new Button();
+            btnSearchPurchaseInvoices = new Button();
             btnCustomer = new Button();
             btnVendor = new Button();
             btnCatagory = new Button();
@@ -67,6 +69,8 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66736F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66736F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6631947F));
+            tableLayoutPanel1.Controls.Add(btnSearchSellInvoices, 0, 4);
+            tableLayoutPanel1.Controls.Add(btnSearchPurchaseInvoices, 0, 4);
             tableLayoutPanel1.Controls.Add(btnCustomer, 5, 0);
             tableLayoutPanel1.Controls.Add(btnVendor, 4, 0);
             tableLayoutPanel1.Controls.Add(btnCatagory, 1, 0);
@@ -86,6 +90,38 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel1.Size = new Size(1009, 757);
             tableLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSearchSellInvoices
+            // 
+            btnSearchSellInvoices.Cursor = Cursors.Hand;
+            btnSearchSellInvoices.Dock = DockStyle.Fill;
+            btnSearchSellInvoices.FlatAppearance.BorderColor = Color.DarkSlateGray;
+            btnSearchSellInvoices.FlatAppearance.BorderSize = 2;
+            btnSearchSellInvoices.FlatStyle = FlatStyle.Flat;
+            btnSearchSellInvoices.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            btnSearchSellInvoices.Location = new Point(3, 607);
+            btnSearchSellInvoices.Name = "btnSearchSellInvoices";
+            btnSearchSellInvoices.Size = new Size(162, 147);
+            btnSearchSellInvoices.TabIndex = 9;
+            btnSearchSellInvoices.Text = "Search Sell Invoices";
+            btnSearchSellInvoices.UseVisualStyleBackColor = true;
+            btnSearchSellInvoices.Click += btnSearchSellInvoices_Click;
+            // 
+            // btnSearchPurchaseInvoices
+            // 
+            btnSearchPurchaseInvoices.Cursor = Cursors.Hand;
+            btnSearchPurchaseInvoices.Dock = DockStyle.Fill;
+            btnSearchPurchaseInvoices.FlatAppearance.BorderColor = Color.DarkSlateGray;
+            btnSearchPurchaseInvoices.FlatAppearance.BorderSize = 2;
+            btnSearchPurchaseInvoices.FlatStyle = FlatStyle.Flat;
+            btnSearchPurchaseInvoices.Font = new Font("Segoe UI Variable Display Semib", 12F);
+            btnSearchPurchaseInvoices.Location = new Point(171, 607);
+            btnSearchPurchaseInvoices.Name = "btnSearchPurchaseInvoices";
+            btnSearchPurchaseInvoices.Size = new Size(162, 147);
+            btnSearchPurchaseInvoices.TabIndex = 8;
+            btnSearchPurchaseInvoices.Text = "Search Purchase Invoices";
+            btnSearchPurchaseInvoices.UseVisualStyleBackColor = true;
+            btnSearchPurchaseInvoices.Click += btnSearchPurchaseInvoices_Click;
             // 
             // btnCustomer
             // 
@@ -250,5 +286,7 @@
         private Button btnCatagory;
         private Button btnCustomer;
         private Button btnVendor;
+        private Button btnSearchSellInvoices;
+        private Button btnSearchPurchaseInvoices;
     }
 }

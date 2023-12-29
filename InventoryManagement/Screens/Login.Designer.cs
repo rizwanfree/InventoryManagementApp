@@ -35,7 +35,6 @@
             btnLogin = new Button();
             leftPanel.SuspendLayout();
             rightPanel.SuspendLayout();
-            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // leftPanel
@@ -122,7 +121,6 @@
             leftPanel.ResumeLayout(false);
             leftPanel.PerformLayout();
             rightPanel.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 

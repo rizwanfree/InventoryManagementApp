@@ -32,7 +32,36 @@ namespace InventoryManagement.Services.SellService
 
         public DataTable GetByName(string name)
         {
-            throw new NotImplementedException();
+            string sql = @"SELECT DISTINCT si.SellInvoiceID AS 'ID',
+                        si.InvoiceDate AS 'Date',
+                        si.BillNumber AS 'Bill #',
+                        c.CustomerName AS 'Customer',
+                        SUM(sid.Total) AS 'Invoice Amount'       
+                        FROM SellInvoice si
+                        INNER JOIN Customers c ON si.CustomerID = c.CustomerID
+                        INNER JOIN SellInvoiceDetail sid ON sid.SellInvoiceID = si.SellInvoiceID
+                        WHERE c.CustomerName LIKE @CustomerName
+                        GROUP BY si.SellInvoiceID";
+
+            return db.GetDataList(sql, new DBParameter { Parameter = "@CustomerName", Value = '%' + name.ToUpper() + '%'});
+        }
+
+        public DataTable GetByDate(string fromDate, string endDate)
+        {
+            string sql = @"SELECT DISTINCT si.SellInvoiceID AS 'ID',
+                        si.InvoiceDate AS 'Date',
+                        si.BillNumber AS 'Bill #',
+                        c.CustomerName AS 'Customer',
+                        SUM(sid.Total) AS 'Invoice Amount'       
+                        FROM SellInvoice si
+                        INNER JOIN Customers c ON si.CustomerID = c.CustomerID
+                        INNER JOIN SellInvoiceDetail sid ON sid.SellInvoiceID = si.SellInvoiceID
+                        WHERE si.InvoiceDate BETWEEN @FromDate AND @EndDate
+                        GROUP BY si.SellInvoiceID";
+            List<DBParameter> paras = new List<DBParameter>();
+            paras.Add(new DBParameter { Parameter = "@FromDate", Value = fromDate });
+            paras.Add(new DBParameter { Parameter = "@EndDate",Value = endDate });
+            return db.GetDataList(sql, paras.ToArray());
         }
 
         public DataTable GetForComboBox()
@@ -40,9 +69,16 @@ namespace InventoryManagement.Services.SellService
             throw new NotImplementedException();
         }
 
-        public DataRow GetSingle(int rowID)
+        public DataRow GetSingle(int invoiceID)
         {
-            throw new NotImplementedException();
+            string sql = @"SELECT SellInvoiceID,
+                           InvoiceDate,
+                           BillNumber,
+                           CustomerID
+                           FROM SellInvoice
+                           WHERE SellInvoiceID = @SellInvoiceID";
+            return db.GetDataList(sql, new DBParameter { Parameter = "@SellInvoiceID", Value = invoiceID}).Rows[0];
+            
         }
 
         public void InsertRecord(object obj)

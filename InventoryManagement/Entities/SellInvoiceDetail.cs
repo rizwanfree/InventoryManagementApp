@@ -11,6 +11,7 @@ namespace InventoryManagement.Entities
         public int SellInvoiceDetailID { get; set; }
         public int SellInvoiceID { get; set; }
         public int ProductID { get; set; }
+        public decimal Foot { get; set; }
         public decimal Quantity { get; set; }
         public decimal Rate { get; set; }
         public decimal Total { get; set; }

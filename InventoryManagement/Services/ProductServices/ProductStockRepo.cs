@@ -88,6 +88,16 @@ namespace InventoryManagement.Services.ProductServices
         {
             string sql = @"UPDATE Stock
                            SET UpdateDate = @UpdateDate,
+                               InStock = @InStock,
+                               Rate = @Rate
+                           WHERE ProductID = @ProductID";
+            db.InsertOrUpdateRecord(sql, paras);
+        }
+
+        public void UpdateStockSell(DBParameter[] paras)
+        {
+            string sql = @"UPDATE Stock
+                           SET UpdateDate = @UpdateDate,
                                InStock = @InStock
                            WHERE ProductID = @ProductID";
             db.InsertOrUpdateRecord(sql, paras);

@@ -13,12 +13,31 @@ namespace InventoryManagement.Services.SellService
         readonly DBSQLite db = new DBSQLite();
         public void DeleteRecord(int rowID)
         {
-            throw new NotImplementedException();
+            string sql = @"DELETE FROM SellInvoiceDetail
+                           WHERE SellInvoiceID = @SellInvoiceID";
+            db.DeleteRecord(sql, new DBParameter { Parameter = "@SellInvoiceID", Value = rowID });
         }
 
         public DataTable GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public DataTable GetByID(int id)
+        {
+            string sql = @"SELECT s.SellInvoiceDetailID,
+                           s.SellInvoiceID,
+                           s.ProductID,
+                           s.Foot,
+                           s.Quantity,
+                           s.Rate,
+                           s.Total,
+                           c.CategoryName || ' ' || p.ProductName AS 'ProductName'
+                      FROM SellInvoiceDetail s
+                      INNER JOIN Products p ON p.ProductID = s.ProductID
+                      INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+                      WHERE SellInvoiceID = @SellInvoiceID";
+            return db.GetDataList(sql, new DBParameter { Parameter = "@SellInvoiceID", Value = id });
         }
 
         public DataTable GetByName(string name)
@@ -31,16 +50,17 @@ namespace InventoryManagement.Services.SellService
             throw new NotImplementedException();
         }
 
-        public DataRow GetSingle(int rowID)
-        {
-            throw new NotImplementedException();
-        }
+        public DataRow GetSingle(int ID)
+        {  throw new NotImplementedException(); }
+        
+
 
         public void InsertRecord(object obj)
         {
             string sql = @"INSERT INTO SellInvoiceDetail (                                    
                                       ProductID,
                                       SellInvoiceID,
+                                      Foot,
                                       Quantity,
                                       Rate,
                                       Total
@@ -48,6 +68,7 @@ namespace InventoryManagement.Services.SellService
                                   VALUES (                                     
                                       @ProductID,
                                       @SellInvoiceID,
+                                      @Foot,
                                       @Quantity,
                                       @Rate,
                                       @Total

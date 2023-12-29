@@ -1,6 +1,7 @@
 ﻿using InventoryManagement.Screens.Categories;
 using InventoryManagement.Screens.Customers;
 using InventoryManagement.Screens.Products;
+using InventoryManagement.Screens.Searches;
 using InventoryManagement.Screens.Vendors;
 using InventoryManagement.Services;
 using InventoryManagement.Utilities;
@@ -43,7 +44,7 @@ namespace InventoryManagement.Screens
 
         private void HomeScreen_Load(object sender, EventArgs e)
         {
-
+            ((MDI)MdiParent).myMenu.Visible = true;
         }
 
         private void btnVendor_Click(object sender, EventArgs e)
@@ -74,6 +75,40 @@ namespace InventoryManagement.Screens
         {
             SellInvoiceScreen s = new SellInvoiceScreen();
             MainClass.ShowWindow(s, this, MDI.ActiveForm);
+        }
+
+        private void btnSearchSellInvoices_Click(object sender, EventArgs e)
+        {
+            using (SellInvoicesListScreen s = new SellInvoicesListScreen())
+            {
+                s.title = "Customer Invoices";
+                s.btnSearchText = "Search By Customer";
+                var result = s.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    SellInvoiceScreen sell = new SellInvoiceScreen();
+                    sell.SellInvoiceID = s.InvoiceID;
+                    sell.isUpdate = true;
+                    MainClass.ShowWindow(sell, this, MDI.ActiveForm);
+                }
+            }
+        }
+
+        private void btnSearchPurchaseInvoices_Click(object sender, EventArgs e)
+        {
+            using (PurchaseInvoicesListScreen s = new PurchaseInvoicesListScreen())
+            {
+                s.title = "Purchase Invoices";
+                s.btnSearchText = "Search By Vendor";
+                var result = s.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    PurchaseInvoiceScreen p = new PurchaseInvoiceScreen();
+                    p.PurchaseInvoiceID = s.InvoiceID;
+                    p.isUpdate = true;
+                    MainClass.ShowWindow(p, this, MDI.ActiveForm);
+                }
+            }
         }
     }
 }

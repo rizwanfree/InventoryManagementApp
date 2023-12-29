@@ -13,7 +13,9 @@ namespace InventoryManagement.Services.PurchaseService
         readonly DBSQLite db = new DBSQLite();
         public void DeleteRecord(int rowID)
         {
-            throw new NotImplementedException();
+            string sql = @"DELETE FROM PurchaseInvoiceDetail
+                           WHERE PurchaseInvoiceID = @PurchaseInvoiceID";
+            db.DeleteRecord(sql, new DBParameter { Parameter = "@PurchaseInvoiceID", Value = rowID });
         }
 
         public DataTable GetAll()
@@ -34,6 +36,22 @@ namespace InventoryManagement.Services.PurchaseService
         public DataRow GetSingle(int rowID)
         {
             throw new NotImplementedException();
+        }
+
+        public DataTable GetByID(int id)
+        {
+            string sql = @"SELECT s.PurchaseInvoiceDetailID,
+                           s.PurchaseInvoiceID,
+                           s.ProductID,                           
+                           s.Quantity,
+                           s.Rate,
+                           s.Total,
+                           c.CategoryName || ' ' || p.ProductName AS 'ProductName'
+                      FROM PurchaseInvoiceDetail s
+                      INNER JOIN Products p ON p.ProductID = s.ProductID
+                      INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+                      WHERE PurchaseInvoiceID = @PurchaseInvoiceID";
+            return db.GetDataList(sql, new DBParameter { Parameter = "@PurchaseInvoiceID", Value = id });
         }
 
         public void InsertRecord(object obj)
