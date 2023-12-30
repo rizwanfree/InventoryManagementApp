@@ -32,7 +32,7 @@ namespace InventoryManagement.Screens
 
         }
 
-        public virtual void btnShow_Click(object sender, EventArgs e)
+        public virtual void btnShowBalance_Click(object sender, EventArgs e)
         {
 
         }
